@@ -2,6 +2,7 @@
   import Header from './UI/Header.svelte'
   import MeetupGrid from './Meetups/MeetupGrid.svelte'
   import TextInput from './UI/TextInput.svelte'
+  import Button from './UI/Button.svelte'
 
   let title = ''
   let subtitle = ''
@@ -107,7 +108,7 @@
       rows='3'
     />
 
-    <button type="submit">Add Meetup</button>
+    <Button type="submit" caption="Save" />
   </form>
   <MeetupGrid {meetups} />
 </main>

@@ -20,17 +20,15 @@
 
 </style>
 
-<section>
-  <section class="meetups">
-    {#each meetups as meetup, i (meetup.id)}
-      <MeetupItem
-        title={meetup.title}
-        subtitle={meetup.subtitle}
-        imgUrl={meetup.imageUrl}
-        description={meetup.description}
-        address={meetup.address}
-        email={meetup.contactEmail}
+<section class="meetups">
+  {#each meetups as meetup, i (meetup.id)}
+    <MeetupItem
+      title={meetup.title}
+      subtitle={meetup.subtitle}
+      imgUrl={meetup.imageUrl}
+      description={meetup.description}
+      address={meetup.address}
+      email={meetup.contactEmail}
       />
-    {/each}
-  </section>
+  {/each}
 </section>

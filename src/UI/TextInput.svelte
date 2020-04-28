@@ -5,6 +5,7 @@
   export let rows
   export let value
   export let type
+  export let controlType
 </script>
 
 <style>
