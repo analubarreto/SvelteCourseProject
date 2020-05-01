@@ -19,7 +19,8 @@
       description: 'In this meetup, we will have some experts to teach you how to code',
       imageUrl: 'http://placekitten.com/200/300',
       address: '27th Nerd Road, 32523 New York',
-      contactEmail: 'code@test.com'
+      contactEmail: 'code@test.com',
+      isFavorite: false
     },
     {
       id: 'm2',
@@ -28,7 +29,8 @@
       description: 'Swimming rounds',
       imageUrl: 'http://placekitten.com/200/300',
       address: '27th Nerd Road, 32523 New York',
-      contactEmail: 'swim@test.com'
+      contactEmail: 'swim@test.com',
+      isFavorite: false
     }
   ]
 
@@ -45,10 +47,21 @@
 
     meetups = [newMeetup, ...meetups]
   }
+
+  const toggleFavorite = e => {
+    const id = e.detail
+    // copying the meetup we're updating
+    const updatedMeetup = {...meetups.find(m => { m.id === id }) }
+    updatedMeetup.isFavorite = !updatedMeetup.isFavorite
+    // copying whole meetups array
+    const meetupIndex = meetups.findIndex(m => m.id === id)
+    const updatedMeetups = [...meetups]
+    // update meetups array with copied meetups
+  }
 </script>
 
 <style>
-  .meetups {
+  main {
     margin-top: 5rem;
   }
 
@@ -68,28 +81,24 @@
       id="title"
       label="Title"
       value={title}
-      type='text'
       on:input={e => (title = e.target.value)}
     />
     <TextInput 
       id="subtitle"
       label="Subtitle"
       value={subtitle}
-      type='text'
       on:input={e => (subtitle = e.target.value)}
     />
     <TextInput 
       id="address"
       label="Address"
       value={address}
-      type='text'
       on:input={e => (address = e.target.value)}
     />
     <TextInput 
       id="imageUrl"
       label="Image URL"
       value={imageUrl}
-      type='text'
       on:input={e => imageUrl = e.target.value}
     />
     <TextInput 
@@ -110,5 +119,5 @@
 
     <Button type="submit" caption="Save" />
   </form>
-  <MeetupGrid {meetups} />
+  <MeetupGrid {meetups} on:toggleFavorite={toggleFavorite} />
 </main>

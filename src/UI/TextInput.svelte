@@ -1,11 +1,10 @@
 <script>
-  export let title
   export let id
   export let label
-  export let rows
+  export let rows = null
   export let value
-  export let type
-  export let controlType
+  export let type = 'text'
+  export let controlType = null
 </script>
 
 <style>
