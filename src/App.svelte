@@ -1,40 +1,43 @@
 <script>
-  import Header from './UI/Header.svelte'
-  import MeetupGrid from './Meetups/MeetupGrid.svelte'
-  import TextInput from './UI/TextInput.svelte'
-  import Button from './UI/Button.svelte'
+  import Header from "./UI/Header.svelte";
+  import MeetupGrid from "./Meetups/MeetupGrid.svelte";
+  import TextInput from "./UI/TextInput.svelte";
+  import Button from './UI/Button.svelte';
 
   let title = ''
   let subtitle = ''
   let address = ''
+  let email = ''
   let description = ''
   let imageUrl = ''
-  let email = ''
 
   let meetups = [
     {
-      id: 'm1',
-      title: 'Coding Bootcamp',
-      subtitle: 'Learn to code in 2 hours',
-      description: 'In this meetup, we will have some experts to teach you how to code',
-      imageUrl: 'http://placekitten.com/200/300',
-      address: '27th Nerd Road, 32523 New York',
-      contactEmail: 'code@test.com',
+      id: "m1",
+      title: "Coding Bootcamp",
+      subtitle: "Learn to code in 2 hours",
+      description:
+        "In this meetup, we will have some experts that teach you how to code!",
+      imageUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Caffe_Nero_coffee_bar%2C_High_St%2C_Sutton%2C_Surrey%2C_Greater_London.JPG/800px-Caffe_Nero_coffee_bar%2C_High_St%2C_Sutton%2C_Surrey%2C_Greater_London.JPG",
+      address: "27th Nerd Road, 32523 New York",
+      contactEmail: "code@test.com",
       isFavorite: false
     },
     {
-      id: 'm2',
-      title: 'Swim Together',
-      subtitle: 'Let\'s swimm',
-      description: 'Swimming rounds',
-      imageUrl: 'http://placekitten.com/200/300',
-      address: '27th Nerd Road, 32523 New York',
-      contactEmail: 'swim@test.com',
+      id: "m2",
+      title: "Swim Together",
+      subtitle: "Let's go for some swimming",
+      description: "We will simply swim some rounds!",
+      imageUrl:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Olympic_swimming_pool_%28Tbilisi%29.jpg/800px-Olympic_swimming_pool_%28Tbilisi%29.jpg",
+      address: "27th Nerd Road, 32523 New York",
+      contactEmail: "swim@test.com",
       isFavorite: false
     }
-  ]
+  ];
 
-  const addMeetup = () => {
+  function addMeetup() {
     const newMeetup = {
       id: Math.random().toString(),
       title: title,
@@ -42,21 +45,22 @@
       description: description,
       imageUrl: imageUrl,
       contactEmail: email,
-      address: address
-    }
+      address: address,
+      isFavorite: false
+    };
 
-    meetups = [newMeetup, ...meetups]
+    // meetups.push(newMeetup); // DOES NOT WORK!
+    meetups = [newMeetup, ...meetups];
   }
 
-  const toggleFavorite = e => {
-    const id = e.detail
-    // copying the meetup we're updating
-    const updatedMeetup = {...meetups.find(m => { m.id === id }) }
-    updatedMeetup.isFavorite = !updatedMeetup.isFavorite
-    // copying whole meetups array
-    const meetupIndex = meetups.findIndex(m => m.id === id)
-    const updatedMeetups = [...meetups]
-    // update meetups array with copied meetups
+  function toggleFavorite(event) {
+    const id = event.detail;
+    const updatedMeetup = { ...meetups.find(m => m.id === id) };
+    updatedMeetup.isFavorite = !updatedMeetup.isFavorite;
+    const meetupIndex = meetups.findIndex(m => m.id === id);
+    const updatedMeetups = [...meetups];
+    updatedMeetups[meetupIndex] = updatedMeetup;
+    meetups = updatedMeetups;
   }
 </script>
 
@@ -66,7 +70,7 @@
   }
 
   form {
-    width: 30em;
+    width: 30rem;
     max-width: 90%;
     margin: auto;
   }
@@ -76,48 +80,39 @@
 
 <main>
   <form on:submit|preventDefault={addMeetup}>
-
-    <TextInput 
+    <TextInput
       id="title"
       label="Title"
       value={title}
-      on:input={e => (title = e.target.value)}
-    />
-    <TextInput 
+      on:input={event => (title = event.target.value)} />
+    <TextInput
       id="subtitle"
       label="Subtitle"
       value={subtitle}
-      on:input={e => (subtitle = e.target.value)}
-    />
-    <TextInput 
+      on:input={event => (subtitle = event.target.value)} />
+    <TextInput
       id="address"
       label="Address"
       value={address}
-      on:input={e => (address = e.target.value)}
-    />
-    <TextInput 
+      on:input={event => (address = event.target.value)} />
+    <TextInput
       id="imageUrl"
       label="Image URL"
       value={imageUrl}
-      on:input={e => imageUrl = e.target.value}
-    />
-    <TextInput 
+      on:input={event => (imageUrl = event.target.value)} />
+    <TextInput
       id="email"
-      label="E-mail"
+      label="E-Mail"
+      type="email"
       value={email}
-      type='email'
-      on:input={e => (email = e.target.value)}
-    />
-    <TextInput 
+      on:input={event => (email = event.target.value)} />
+    <TextInput
       id="description"
       label="Description"
+      controlType="textarea"
       value={description}
-      controlType='textarea'
-      on:input={e => (description = e.target.value)}
-      rows='3'
-    />
-
+      on:input={event => (description = event.target.value)} />
     <Button type="submit" caption="Save" />
   </form>
-  <MeetupGrid {meetups} on:toggleFavorite={toggleFavorite} />
+  <MeetupGrid {meetups} on:togglefavorite="{toggleFavorite}" />
 </main>

@@ -1,7 +1,7 @@
 <script>
-    import MeetupItem from './MeetupItem.svelte'
+  import MeetupItem from "./MeetupItem.svelte";
 
-    export let meetups
+  export let meetups;
 </script>
 
 <style>
@@ -17,21 +17,19 @@
       grid-template-columns: repeat(2, 1fr);
     }
   }
-
 </style>
 
-<section class="meetups">
-  {#each meetups as meetup, i (meetup.id)}
-    <MeetupItem
+<section id="meetups">
+  {#each meetups as meetup}
+    <MeetupItem 
       id={meetup.id}
       title={meetup.title}
       subtitle={meetup.subtitle}
-      imgUrl={meetup.imageUrl}
       description={meetup.description}
-      address={meetup.address}
+      imageUrl={meetup.imageUrl}
       email={meetup.contactEmail}
+      address={meetup.address}
       isFav={meetup.isFavorite}
-      on:toggleFavorite
-      />
+      on:togglefavorite />
   {/each}
 </section>
