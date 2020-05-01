@@ -1,7 +1,7 @@
 <script>
-  import MeetupItem from "./MeetupItem.svelte";
+  import MeetupItem from "./MeetupItem.svelte"
 
-  export let meetups;
+  export let meetups
 </script>
 
 <style>
@@ -19,7 +19,7 @@
   }
 </style>
 
-<section id="meetups">
+<section id='meetups'>
   {#each meetups as meetup}
     <MeetupItem 
       id={meetup.id}
