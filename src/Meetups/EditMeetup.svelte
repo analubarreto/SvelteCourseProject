@@ -1,23 +1,17 @@
 <script>
+  import { meetups, customMeetupsStore } from './meetups-store.js'
   import { createEventDispatcher } from 'svelte'
-  import TextInput from "../UI/TextInput.svelte";
-  import Button from '../UI/Button.svelte';
+  import TextInput from "../UI/TextInput.svelte"
+  import Button from '../UI/Button.svelte'
   import Modal from '../UI/Modal.svelte'
   import { isEmpty, isEmail } from '../helpers/validation.js'
 
   let title = ''
-  let titleValid = false
   let subtitle = ''
-  let subtitleValid = false
   let address = ''
-  let addressValid = false
   let email = ''
-  let emailValid = false
   let description = ''
-  let descriptionValid = false
   let imageUrl = ''
-  let imageUrlValid = false
-  let formIsValid = false
 
   const dispatch = createEventDispatcher()
 
@@ -36,14 +30,17 @@
   $: console.log(formIsValid)
 
   function submitForm() {
-    dispatch('save', {
+    const meetupData = {
       title: title,
       subtitle: subtitle,
-      address: address,
-      email: email,
       description: description,
-      imageUrl: imageUrl
-    })
+      imageUrl: imageUrl,
+      contactEmail: email,
+      address: address
+    };
+
+    customMeetupsStore.addMeetup(meetupData)
+    dispatch('save')
   }
 
   function cancel() {
