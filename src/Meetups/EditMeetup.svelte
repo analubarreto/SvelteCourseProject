@@ -102,6 +102,7 @@
       validityMessage={"Description can't be empty"}
       controlType="textarea"
       value={description}
+      rows = 3
       on:input={event => (description = event.target.value)} />
   </form>
   <div slot="footer">
